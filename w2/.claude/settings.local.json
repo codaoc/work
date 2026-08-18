@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"http://localhost:8000/api/v1/dbs/MySQL测试库\")",
+      "Bash(python3 -m json.tool)"
+    ]
+  }
+}
