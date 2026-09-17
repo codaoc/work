@@ -1,0 +1,23 @@
+# pg-agent 配置示例（复制为 pgagent.toml 后按需修改）
+# 数据库连接串从环境变量读取，禁止明文写入本文件（见设计文档 §4.9）
+
+[database]
+url_env = "PGAGENT_DATABASE_URL"
+lock_timeout = "5s"
+statement_timeout = "60s"
+
+[llm]
+model = "claude-opus-5"        # 成本敏感可切换 claude-sonnet-5
+effort = "high"
+max_tokens = 16000
+max_preview_iterations = 5
+
+[safety]
+allow_destructive = "ask"      # ask | deny | allow（高危变更始终需要确认）
+large_table_rows = 100000      # 行数估计超过该值视为大表（中危阈值）
+statement_whitelist = ["CREATE", "ALTER", "DROP", "COMMENT", "TRUNCATE"]
+
+[storage]
+migrations_dir = "migrations"
+design_log = "SCHEMA_DESIGN.md"
+state_dir = ".pgagent"
